@@ -7,6 +7,14 @@
 .app-header {
   margin-bottom: 40px;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.brand-row {
+  display: flex;
   align-items: center;
   gap: 12px;
 }
@@ -17,6 +25,58 @@
   background: linear-gradient(to right, #60a5fa, #a78bfa);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.auth-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-display {
+  font-size: 1rem;
+  color: #fff;
+}
+
+.auth-button {
+  border: 1px solid rgba(96, 165, 250, 0.9);
+  background: rgba(96, 165, 250, 0.12);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 9999px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.auth-button:hover {
+  background: #60a5fa;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.auth-primary {
+  background: #60a5fa;
+  color: #fff;
+  border-color: transparent;
+}
+
+.auth-prompt {
+  margin-top: 48px;
+  padding: 32px;
+  border-radius: 24px;
+  background: #f8fafc;
+  text-align: center;
+}
+
+.auth-prompt h2 {
+  margin-bottom: 12px;
+  color: #0f172a;
+}
+
+.auth-prompt p {
+  margin-bottom: 24px;
+  color: #475569;
 }
 
 .dashboard-grid {
