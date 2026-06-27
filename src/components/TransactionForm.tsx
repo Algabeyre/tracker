@@ -110,6 +110,8 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
                 <option value="Housing">Housing</option>
                 <option value="Entertainment">Entertainment</option>
                 <option value="Utilities">Utilities</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Telecom">Telecom</option>
                 <option value="Other">Other</option>
               </>
             ) : (
