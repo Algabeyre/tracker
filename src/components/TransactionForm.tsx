@@ -93,7 +93,6 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
             required
           />
         </div>
-
         <div className="form-group">
           <label>Category</label>
           <select
@@ -106,6 +105,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
             {type === 'expense' ? (
               <>
                 <option value="Food">Food & Dining</option>
+                <option value="Grocery">Grocery</option>
                 <option value="Transport">Transportation</option>
                 <option value="Housing">Housing</option>
                 <option value="Entertainment">Entertainment</option>
