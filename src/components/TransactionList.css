@@ -86,6 +86,28 @@
   gap: 4px;
 }
 
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.action-btn {
+  background: transparent;
+  color: var(--text-secondary);
+  padding: 4px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.2s, color 0.2s;
+}
+
+.transaction-item:hover .action-btn {
+  opacity: 1;
+}
+
+.action-btn:hover {
+  color: var(--accent-primary);
+}
+
 .item-amount {
   font-size: 1.1rem;
   font-weight: 600;
@@ -97,19 +119,6 @@
 
 .item-amount.expense {
   color: var(--accent-expense);
-}
-
-.delete-btn {
-  background: transparent;
-  color: var(--text-secondary);
-  padding: 4px;
-  border-radius: 4px;
-  opacity: 0;
-  transition: opacity 0.2s, color 0.2s;
-}
-
-.transaction-item:hover .delete-btn {
-  opacity: 1;
 }
 
 .delete-btn:hover {

@@ -26,7 +26,7 @@ const ExpenseChart: React.FC<ExpenseChartProps> = ({ transactions }) => {
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'EUR',
       maximumFractionDigits: 0
     }).format(amount);
   };

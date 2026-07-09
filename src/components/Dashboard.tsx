@@ -26,6 +26,7 @@ const Dashboard: React.FC = () => {
     }
     return INITIAL_DATA;
   });
+  const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null);
 
   useEffect(() => {
     localStorage.setItem('budget_transactions', JSON.stringify(transactions));
@@ -37,10 +38,19 @@ const Dashboard: React.FC = () => {
       id: crypto.randomUUID(),
     };
     setTransactions(prev => [transaction, ...prev]);
+    setEditingTransaction(null);
+  };
+
+  const updateTransaction = (updatedTransaction: Transaction) => {
+    setTransactions(prev => prev.map(t => t.id === updatedTransaction.id ? updatedTransaction : t));
+    setEditingTransaction(null);
   };
 
   const deleteTransaction = (id: string) => {
     setTransactions(prev => prev.filter(t => t.id !== id));
+    if (editingTransaction?.id === id) {
+      setEditingTransaction(null);
+    }
   };
 
   const summaryData: SummaryData = transactions.reduce(
@@ -67,12 +77,18 @@ const Dashboard: React.FC = () => {
           <TransactionList 
             transactions={transactions} 
             onDeleteTransaction={deleteTransaction} 
+            onEditTransaction={setEditingTransaction}
           />
         </div>
 
         {/* Right Column (Sidebar) */}
         <div className="sidebar" style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-          <TransactionForm onAddTransaction={addTransaction} />
+          <TransactionForm
+            onAddTransaction={addTransaction}
+            editingTransaction={editingTransaction}
+            onUpdateTransaction={updateTransaction}
+            onCancelEdit={() => setEditingTransaction(null)}
+          />
           <ExpenseChart transactions={transactions} />
         </div>
       </div>

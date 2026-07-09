@@ -1,14 +1,15 @@
 import React from 'react';
 import type { Transaction } from '../types';
-import { ArrowUpRight, ArrowDownRight, Trash2 } from 'lucide-react';
+import { ArrowUpRight, ArrowDownRight, Trash2, Pencil } from 'lucide-react';
 import './TransactionList.css';
 
 interface TransactionListProps {
   transactions: Transaction[];
   onDeleteTransaction: (id: string) => void;
+  onEditTransaction: (transaction: Transaction) => void;
 }
 
-const TransactionList: React.FC<TransactionListProps> = ({ transactions, onDeleteTransaction }) => {
+const TransactionList: React.FC<TransactionListProps> = ({ transactions, onDeleteTransaction, onEditTransaction }) => {
   // Group transactions by date
   const groupedTransactions = transactions.reduce((acc, transaction) => {
     if (!acc[transaction.date]) {
@@ -24,7 +25,7 @@ const TransactionList: React.FC<TransactionListProps> = ({ transactions, onDelet
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'EUR',
     }).format(amount);
   };
 
@@ -79,13 +80,24 @@ const TransactionList: React.FC<TransactionListProps> = ({ transactions, onDelet
                 <span className={`item-amount ${t.type}`}>
                   {t.type === 'income' ? '+' : '-'}{formatCurrency(t.amount)}
                 </span>
-                <button 
-                  className="delete-btn" 
-                  onClick={() => onDeleteTransaction(t.id)}
-                  title="Delete Transaction"
-                >
-                  <Trash2 size={16} />
-                </button>
+                <div className="action-buttons">
+                  <button
+                    type="button"
+                    className="action-btn edit-btn"
+                    onClick={() => onEditTransaction(t)}
+                    title="Edit Transaction"
+                  >
+                    <Pencil size={16} />
+                  </button>
+                  <button
+                    type="button"
+                    className="action-btn delete-btn"
+                    onClick={() => onDeleteTransaction(t.id)}
+                    title="Delete Transaction"
+                  >
+                    <Trash2 size={16} />
+                  </button>
+                </div>
               </div>
             </div>
           ))}

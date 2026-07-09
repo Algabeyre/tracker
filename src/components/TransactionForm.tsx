@@ -1,42 +1,76 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { Transaction, TransactionType } from '../types';
 import { PlusCircle } from 'lucide-react';
 import './TransactionForm.css';
 
 interface TransactionFormProps {
   onAddTransaction: (transaction: Omit<Transaction, 'id'>) => void;
+  editingTransaction?: Transaction | null;
+  onUpdateTransaction?: (transaction: Transaction) => void;
+  onCancelEdit?: () => void;
 }
 
-const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) => {
+const TransactionForm: React.FC<TransactionFormProps> = ({
+  onAddTransaction,
+  editingTransaction,
+  onUpdateTransaction,
+  onCancelEdit,
+}) => {
   const [title, setTitle] = useState('');
   const [amount, setAmount] = useState('');
   const [type, setType] = useState<TransactionType>('expense');
   const [category, setCategory] = useState('');
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
 
+  const resetForm = () => {
+    setTitle('');
+    setAmount('');
+    setType('expense');
+    setCategory('');
+    setDate(new Date().toISOString().split('T')[0]);
+  };
+
+  useEffect(() => {
+    if (editingTransaction) {
+      setTitle(editingTransaction.title);
+      setAmount(editingTransaction.amount.toString());
+      setType(editingTransaction.type);
+      setCategory(editingTransaction.category);
+      setDate(editingTransaction.date);
+    } else {
+      resetForm();
+    }
+  }, [editingTransaction]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!title || !amount || !category || !date) return;
 
-    onAddTransaction({
+    const transactionData = {
       title,
       amount: parseFloat(amount),
       type,
       category,
       date,
-    });
+    };
 
-    setTitle('');
-    setAmount('');
-    setCategory('');
-    // Keep the date as is, usually user enters multiple on same date
+    if (editingTransaction && onUpdateTransaction) {
+      onUpdateTransaction({
+        ...editingTransaction,
+        ...transactionData,
+      });
+    } else {
+      onAddTransaction(transactionData);
+    }
+
+    resetForm();
   };
 
   return (
     <div className="glass-panel animate-fade-in" style={{ animationDelay: '0.1s' }}>
       <div className="form-header">
         <PlusCircle className="text-accent-primary" size={24} color="#3b82f6" />
-        <h2>Add Transaction</h2>
+        <h2>{editingTransaction ? 'Edit Transaction' : 'Add Transaction'}</h2>
       </div>
       
       <form onSubmit={handleSubmit} className="form-container">
@@ -126,9 +160,16 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onAddTransaction }) =
           </select>
         </div>
 
-        <button type="submit" className="submit-btn">
-          Add Transaction
-        </button>
+        <div className="action-buttons-row">
+          <button type="submit" className="submit-btn">
+            {editingTransaction ? 'Update Transaction' : 'Add Transaction'}
+          </button>
+          {editingTransaction && onCancelEdit && (
+            <button type="button" className="cancel-btn" onClick={onCancelEdit}>
+              Cancel
+            </button>
+          )}
+        </div>
       </form>
     </div>
   );

@@ -73,6 +73,12 @@
   color: #fff;
 }
 
+.action-buttons-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
 .submit-btn {
   background: var(--accent-primary);
   color: white;
@@ -80,8 +86,8 @@
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 600;
-  margin-top: 8px;
   transition: background 0.2s, transform 0.1s;
+  flex: 1;
 }
 
 .submit-btn:hover {
@@ -90,6 +96,22 @@
 
 .submit-btn:active {
   transform: scale(0.98);
+}
+
+.cancel-btn {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--surface-border);
+  padding: 14px 16px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.cancel-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--text-secondary);
 }
 
 /* Customizing date picker icon for webkit */
