@@ -52,6 +52,14 @@
   color: var(--accent-expense);
 }
 
+.income-card .summary-info p {
+  color: var(--accent-income);
+}
+
+.expense-card .summary-info p {
+  color: var(--accent-expense);
+}
+
 .summary-info h3 {
   font-size: 0.9rem;
   color: var(--text-secondary);

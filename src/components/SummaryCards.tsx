@@ -27,7 +27,7 @@ const SummaryCards: React.FC<SummaryCardsProps> = ({ data }) => {
         </div>
       </div>
 
-      <div className="glass-panel summary-card">
+      <div className="glass-panel summary-card income-card">
         <div className="icon-wrapper icon-income">
           <TrendingUp size={28} />
         </div>
@@ -37,7 +37,7 @@ const SummaryCards: React.FC<SummaryCardsProps> = ({ data }) => {
         </div>
       </div>
 
-      <div className="glass-panel summary-card">
+      <div className="glass-panel summary-card expense-card">
         <div className="icon-wrapper icon-expense">
           <TrendingDown size={28} />
         </div>
