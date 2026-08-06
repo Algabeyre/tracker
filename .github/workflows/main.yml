@@ -1,6 +1,0 @@
-name: Deploy Static Content to Pages
-# ... (Configuration content shortened)
-on:
-  push:
-    branches: ["main"]
-# ...
